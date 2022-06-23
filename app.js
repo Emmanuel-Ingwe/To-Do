@@ -16,7 +16,6 @@ form.addEventListener('submit', addItem);
 
 clearBtn.addEventListener('click', clearItems);
 
-const deleteBtn = document.querySelector(".delete-btn");
 
 function addItem(e) {
   e.preventDefault();
@@ -38,6 +37,13 @@ function addItem(e) {
         <i class="fas fa-trash"></i>
       </button>
     </div>`;
+    const deleteBtn = element.querySelector('.delete-btn');
+    const editBtn = element.querySelector('.edit-btn');
+    deleteBtn.addEventListener('click', deleteItem);
+    editBtn.addEventListener('click', editItem);
+
+
+
     list.appendChild(element);
     displayAlert("item added to the list", "success");
     container.classList.add('show-container');
@@ -69,6 +75,21 @@ function clearItems() {
   container.classList.remove('show-container');
   displayAlert("empty list", "danger");
   setBackToDefault();
+}
+
+function deleteItem(e) {
+  const element = e.currentTarget.parentElement.parentElement;
+  const id = element.dataset.id;
+  list.removeChild(element);
+  if (list.children.length === 0) {
+    container.classList.remove('show-container');
+  }
+  displayAlert('Item removed', 'danger');
+  setBackToDefault();
+}
+
+function editItem() {
+
 }
 
 function setBackToDefault() {
