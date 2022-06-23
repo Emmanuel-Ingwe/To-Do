@@ -51,7 +51,9 @@ function addItem(e) {
     setBackToDefault();
   } else if (value && editFlag) {
 
-  } else { displayAlert("please enter value", "danger"); }
+  } else {
+    displayAlert("please enter value", "danger");
+  }
 }
 
 function displayAlert(text, action) {
@@ -88,8 +90,14 @@ function deleteItem(e) {
   setBackToDefault();
 }
 
-function editItem() {
+function editItem(e) {
+  const element = e.currentTarget.parentElement.parentElement;
+  editElement = e.currentTarget.parentElement.previousElementSibling;
 
+  grocery.value = editElement.innerHTML;
+  editFlag = true;
+  editID = element.dataset.id;
+  submitBtn.textContent = "edit";
 }
 
 function setBackToDefault() {
