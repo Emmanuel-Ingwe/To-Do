@@ -14,6 +14,10 @@ let editID = "";
 
 form.addEventListener('submit', addItem);
 
+clearBtn.addEventListener('click', clearItems);
+
+const deleteBtn = document.querySelector(".delete-btn");
+
 function addItem(e) {
   e.preventDefault();
   const value = grocery.value;
@@ -30,13 +34,15 @@ function addItem(e) {
       <button type="button" class="edit-btn">
         <i class="fas fa-edit"></i>
       </button>
-      <button type="button" class="edit-btn" >
+      <button type="button" class="delete-btn" >
         <i class="fas fa-trash"></i>
       </button>
     </div>`;
     list.appendChild(element);
     displayAlert("item added to the list", "success");
     container.classList.add('show-container');
+    addToLocalStorage(id, value);
+    setBackToDefault();
   } else if (value && editFlag) {
 
   } else { displayAlert("please enter value", "danger"); }
@@ -50,4 +56,28 @@ function displayAlert(text, action) {
     alert.textContent = "";
     alert.classList.remove(`alert-${action}`);
   }, 1000);
+}
+
+function clearItems() {
+  const items = document.querySelectorAll(".grocery-item");
+
+  if (items.length > 0) {
+    items.forEach(function (item) {
+      list.removeChild(item);
+    });
+  }
+  container.classList.remove('show-container');
+  displayAlert("empty list", "danger");
+  setBackToDefault();
+}
+
+function setBackToDefault() {
+  grocery.value = '';
+  editFlag = false;
+  editID = '';
+  submitBtn.textContent = 'submit';
+}
+
+function addToLocalStorage(id, value) {
+
 }
