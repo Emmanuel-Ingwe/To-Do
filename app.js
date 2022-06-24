@@ -50,7 +50,10 @@ function addItem(e) {
     addToLocalStorage(id, value);
     setBackToDefault();
   } else if (value && editFlag) {
-
+    editElement.innerHTML = value;
+    displayAlert('value changed', 'success');
+    editLocalStorage(editID, value);
+    setBackToDefault();
   } else {
     displayAlert("please enter value", "danger");
   }
@@ -107,6 +110,8 @@ function setBackToDefault() {
   submitBtn.textContent = 'submit';
 }
 
-function addToLocalStorage(id, value) {
+function addToLocalStorage(id, value) { }
+function removeFromLocalStorage(id) { }
+function editLocalStorage(id, value) { }
 
-}
+// localStorage.setItem('orange')
