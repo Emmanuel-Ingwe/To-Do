@@ -16,6 +16,8 @@ form.addEventListener('submit', addItem);
 
 clearBtn.addEventListener('click', clearItems);
 
+window.addEventListener('DOMContentLoaded', setupItems);
+
 
 function addItem(e) {
   e.preventDefault();
