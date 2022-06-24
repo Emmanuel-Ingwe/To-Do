@@ -25,28 +25,7 @@ function addItem(e) {
 
   const id = new Date().getTime().toString();
   if (value && !editFlag) {
-    const element = document.createElement('article');
-    element.classList.add('grocery-item');
-    const attr = document.createAttribute('data-id');
-    attr.value = id;
-    element.setAttributeNode(attr);
-    element.innerHTML = ` <p class="title">${value}</p>
-    <div class="btn-container">
-      <button type="button" class="edit-btn">
-        <i class="fas fa-edit"></i>
-      </button>
-      <button type="button" class="delete-btn" >
-        <i class="fas fa-trash"></i>
-      </button>
-    </div>`;
-    const deleteBtn = element.querySelector('.delete-btn');
-    const editBtn = element.querySelector('.edit-btn');
-    deleteBtn.addEventListener('click', deleteItem);
-    editBtn.addEventListener('click', editItem);
-
-
-
-    list.appendChild(element);
+    createListItem(id, value);
     displayAlert("item added to the list", "success");
     container.classList.add('show-container');
     addToLocalStorage(id, value);
@@ -146,3 +125,35 @@ function getLocalStorage() {
   return localStorage.getItem('list') ? JSON.parse(localStorage.getItem('list')) : [];
 }
 // localStorage.setItem('orange')
+function setupItems() {
+  let items = getLocalStorage();
+  if (items.length > 0) {
+    items.forEach((item) => {
+      createListItem(item.id, item.value);
+    });
+    container.classList.add('show-container');
+  }
+}
+
+function createListItem(id, value) {
+  const element = document.createElement('article');
+  element.classList.add('grocery-item');
+  const attr = document.createAttribute('data-id');
+  attr.value = id;
+  element.setAttributeNode(attr);
+  element.innerHTML = ` <p class="title">${value}</p>
+    <div class="btn-container">
+      <button type="button" class="edit-btn">
+        <i class="fas fa-edit"></i>
+      </button>
+      <button type="button" class="delete-btn" >
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>`;
+  const deleteBtn = element.querySelector('.delete-btn');
+  const editBtn = element.querySelector('.edit-btn');
+  deleteBtn.addEventListener('click', deleteItem);
+  editBtn.addEventListener('click', editItem);
+
+  list.appendChild(element);
+}
